@@ -1,3 +1,3 @@
-# macampagne-repo
+# Prototype | macampagne.ca
 
-Développement du site http://macampagne.ca .
+Refactoring MVC.

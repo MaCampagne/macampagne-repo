@@ -1,3 +1,10 @@
+<?php 
+
+require '../app/autoloader.php';
+App\Autoloader::register();
+
+ ?>
+
 <!doctype html>
 <html lang="fr">
 <head>
