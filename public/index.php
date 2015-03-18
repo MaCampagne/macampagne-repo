@@ -1,21 +1,38 @@
 <?php 
 
-require '../app/autoloader.php';
+require '../app/Autoloader.php';
+require '../app/Database.php';
 App\Autoloader::register();
 
- ?>
 
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>Titre de la page</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
-</head>
-<body>
-  ...
-  Hello World !
-  ...
-</body>
-</html>
+
+if (isset($_GET['p'])) {
+
+	$p = $_GET['p'];
+	
+}else {
+
+	$p = 'home';
+	
+}
+
+
+//Initialisation des objets
+$db = new App\Database('blog');
+
+
+ob_start();
+
+if ($p === 'home') {
+	
+	require '../pages/home.php';
+	
+} elseif ($p === 'article') {
+	
+	require '../pages/single.php';
+	
+}
+
+$content = ob_get_clean();	
+
+require '../pages/templates/default.php';
