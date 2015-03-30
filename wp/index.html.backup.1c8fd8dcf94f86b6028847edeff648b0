@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>
+		macampagne.ca
+	</title>
+
+	<style>
+	* { font-family: verdana; font-size: 10pt; COLOR: gray; }
+	b { font-weight: bold; }
+	table { height: 50%; border: 1px solid gray;}
+	td { text-align: center; padding: 25;}
+
+	</style>
+</head>
+<body>
+<center>
+<br><br><br><br>
+	<table>
+	<tr><td>Bienvenue sur <b>macampagne.ca</b></td></tr>
+	<tr><td>Pour changer cette page, importez votre index.html dans le répertoire public_html</td></tr>
+	<tr><td><img src="logo.jpg"></td></tr>
+	<tr><td style="font-size: 8pt">Date Created: Thu Jul 11 22:18:11 2013</td></tr>
+	</table>
+<br><br>
+Hébergement Web par Rapidenet Canada ( <a href="http://www.rapidenet.ca">www.rapidenet.ca</a> )
+</center>
+</body>
+
+</html>
+
