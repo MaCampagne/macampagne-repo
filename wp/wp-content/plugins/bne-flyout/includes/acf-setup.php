@@ -6,11 +6,11 @@
  *
  * 	@author		Kerry Kline
  * 	@copyright	Copyright (c) 2015, Kerry Kline
- * 	@link		http://www.bluenotesentertainment.com
+ * 	@link		http://www.bnecreative.com
  *	@package	BNE Flyout
  *
  *	@ACF Version	5.1.4
- *	@updated		November 13, 2014
+ *	@updated		March 12, 2015
  *
 */
 
@@ -30,24 +30,25 @@ function bne_flyout_acf_load() {
 		// Remove the ACF admin menu
 		add_filter( 'acf/settings/show_admin', '__return_false' );
 
-	}
-
-	// Set ACF 5 Settings Directory
-	if( ! function_exists( 'bne_acf_settings_dir' ) ) {
-		function bne_acf_settings_dir( $dir ) {
-			$dir = BNE_FLYOUT_URI . '/includes/acfpro/';
-			return $dir;
+		// Set ACF 5 Settings Directory
+		if( ! function_exists( 'bne_acf_settings_dir' ) ) {
+			function bne_acf_settings_dir( $dir ) {
+				$dir = BNE_FLYOUT_URI . '/includes/acfpro/';
+				return $dir;
+			}
+			add_filter( 'acf/settings/dir', 'bne_acf_settings_dir' );
 		}
-		add_filter( 'acf/settings/dir', 'bne_acf_settings_dir' );
-	}
 
-	// Set ACF 5 Settings Path
-	if( ! function_exists( 'bne_acf_settings_path' ) ) {
-		function bne_acf_settings_path( $path ) {
-			$path = BNE_FLYOUT_DIR . '/includes/acfpro/';
-			return $path;
+		// Set ACF 5 Settings Path
+		if( ! function_exists( 'bne_acf_settings_path' ) ) {
+			function bne_acf_settings_path( $path ) {
+				$path = BNE_FLYOUT_DIR . '/includes/acfpro/';
+				return $path;
+			}
+			add_filter( 'acf/settings/path', 'bne_acf_settings_path' );
 		}
-		add_filter( 'acf/settings/path', 'bne_acf_settings_path' );
+
+
 	}
 
 

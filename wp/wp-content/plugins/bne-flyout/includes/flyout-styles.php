@@ -4,7 +4,7 @@
  *
  * 	@author		Kerry Kline
  * 	@copyright	Copyright (c) 2015, Kerry Kline
- * 	@link		http://www.bluenotesentertainment.com
+ * 	@link		http://www.bnecreative.com
  *	@package	BNE Flyouts
  *
 */
@@ -28,9 +28,9 @@ function bne_flyout_custom_css_wp_head() {
 
 <!-- Flyout Custom CSS -->
 <style type="text/css">
-<?php while ( $bne_flyout->have_posts() ) : $bne_flyout->the_post();
+<?php while( $bne_flyout->have_posts() ) : $bne_flyout->the_post();
 
-	// Get Flyout ID, location, and CSS Styles of each Flyout
+	// Get Flyout ID
 	$flyout_id = get_the_ID();
 
 	// Flyout Size @since v1.2
@@ -76,11 +76,11 @@ function bne_flyout_custom_css_wp_head() {
 	#flyout-content-id-<?php echo $flyout_id; ?> .flyout-content h4,
 	#flyout-content-id-<?php echo $flyout_id; ?> .flyout-content h5,
 	#flyout-content-id-<?php echo $flyout_id; ?> .flyout-content h6 { color: <?php echo $header_color; ?>; }
-	<?php if ( $flyout_bg_color && !$flyout_bg_image ) { ?>
+	<?php if( $flyout_bg_color && !$flyout_bg_image ) { ?>
 	#flyout-content-id-<?php echo $flyout_id; ?> .flyout-content {
 		background-color: <?php echo $flyout_bg_color; ?>;
 	}
-	<?php } elseif ( $flyout_bg_image && $flyout_bg_repeat == 'no-repeat' ) { ?>
+	<?php } elseif( $flyout_bg_image && $flyout_bg_repeat == 'no-repeat' ) { ?>
 	#flyout-content-id-<?php echo $flyout_id; ?> .flyout-content {
 		background-color: <?php echo $flyout_bg_color; ?>;
 		background-image: url('<?php echo $flyout_bg_image; ?>') !important;
@@ -92,7 +92,7 @@ function bne_flyout_custom_css_wp_head() {
 		-o-background-size: cover;
 		background-size: cover;
 	}
-	<?php } elseif ( $flyout_bg_image ) { ?>
+	<?php } elseif( $flyout_bg_image ) { ?>
 	#flyout-content-id-<?php echo $flyout_id; ?> .flyout-content {
 		background-color: <?php echo $flyout_bg_color; ?>;
 		background-image: url('<?php echo $flyout_bg_image; ?>') !important;

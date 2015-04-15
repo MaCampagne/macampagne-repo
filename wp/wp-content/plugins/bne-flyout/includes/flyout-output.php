@@ -4,7 +4,7 @@
  *
  * 	@author		Kerry Kline
  * 	@copyright	Copyright (c) 2015, Kerry Kline
- * 	@link		http://www.bluenotesentertainment.com
+ * 	@link		http://www.bnecreative.com
  *	@package	BNE Flyouts
  *
  *

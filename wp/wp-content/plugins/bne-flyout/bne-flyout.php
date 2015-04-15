@@ -1,15 +1,15 @@
 <?php
 /*
  * Plugin Name: BNE Flyout
- * Version: 1.2.4
- * Plugin URI: http://www.bluenotesentertainment.com
+ * Version: 1.2.6
+ * Plugin URI: http://www.bnecreative.com/products/off-canvas-sidebar-content-for-wordpress/
  * Description:  Adds hidden sidebars or off-canvas content (left, right, top, and bottom), including custom menus, to all pages of your website that are triggered from a floating image, button or inline element.
- * Author: Kerry Kline, Bluenotes Entertainment
- * Author URI: http://www.bluenotesentertainment.com
+ * Author: Kerry Kline, BNE Creative
+ * Author URI: http://www.bnecreative.com
  * Requires at least: 3.8
  * License: GPL2
 
-    Copyright 2015  Bluenotes Entertainment
+    Copyright 2015  BNE Creative
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License version 2,
@@ -42,7 +42,7 @@ if ( version_compare( $wp_version,"3.8","<" ) ) {
  *	Plugin Constants
  * ======================================================== */
 
-define( 'BNE_FLYOUT_VERSION', '1.2.4' );
+define( 'BNE_FLYOUT_VERSION', '1.2.6' );
 define( 'BNE_FLYOUT_DIR', dirname( __FILE__ ) );
 define( 'BNE_FLYOUT_URI', plugins_url( '', __FILE__ ) );
 define( 'BNE_FLYOUT_BASENAME', plugin_basename( __FILE__ ) );
@@ -52,12 +52,12 @@ define( 'BNE_FLYOUT_BASENAME', plugin_basename( __FILE__ ) );
 /*
  * 	Load plugin textdomain for localization
  *
- * 	@since 1.0.0
+ * 	@since 1.2.4
 */
-function bne_landing_load_textdomain() {
+function bne_flyout_load_textdomain() {
   load_plugin_textdomain( 'bne-flyout', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
-add_action( 'plugins_loaded', 'bne_landing_load_textdomain' );
+add_action( 'plugins_loaded', 'bne_flyout_load_textdomain' );
 
 
 
@@ -101,13 +101,11 @@ function bne_flyout_register_enqueue_scripts_styles() {
 	// Register the CSS
 	wp_register_style( 'bne-flyout-styles', BNE_FLYOUT_URI . '/assets/css/bne-flyout.css', '', BNE_FLYOUT_VERSION, 'all' );
 
-
 	// Dev version
-	//wp_register_script( 'sidr', BNE_FLYOUT_URI . '/assets/js/jquery.sidr.dev.js', array('jquery'), '1.2.1-bne', true );
+	//wp_register_script( 'sidr', BNE_FLYOUT_URI . '/assets/js/jquery.sidr.dev.js', array('jquery'), BNE_FLYOUT_VERSION, true );
 
 	// Register Sidr JS
-	wp_register_script( 'sidr', BNE_FLYOUT_URI . '/assets/js/jquery.sidr.min.js', array('jquery'), '1.2.1-bne', true );
-
+	wp_register_script( 'sidr', BNE_FLYOUT_URI . '/assets/js/jquery.sidr.min.js', array('jquery'), BNE_FLYOUT_VERSION, true );
 
 	// Enqueue the plugin CSS and JS
 	wp_enqueue_style( 'bne-flyout-styles' );

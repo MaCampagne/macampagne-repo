@@ -1,10 +1,10 @@
-=== BNE Testimonials ===
-Author URI: http://www.bluenotesentertainment.com
+=== BNE Flyout ===
+Author URI: http://www.bnecreative.com
 Contributors: bluenotes
 Tags: sidebar, flyout, off-canvas, hidden sidebars, sidebar content, hidden content
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 1.2.4
+Tested up to: 4.1.1
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,14 +30,29 @@ Adds hidden sidebars (left, right, top, and bottom) to all pages of your website
 
 == Changelog ==
 
+= 1.2.6 ( March 21, 2015 ) =
+* Fix: Flyouts not opening on Windows 8 devices that are touch enabled which can also use a mouse.
+
+
+
+= 1.2.5 ( March 12, 2015 ) =
+* Fix: Match trigger image output max-width to 200px as it is defined in the trigger settings tab.
+* Fix: Compatibility fix with ACF v5.2.1
+* Tweak: Changed Step value for trigger position from 10 to 1 in the trigger settings tab. Some users reported not being able to save with non-10 step values.
+* Note: Update branding from Bluenotes Entertainment to BNE Creative ( Why? http://www.bnecreative.com/blog/introducing-bne-creative/ )
+
+
+
 = 1.2.4 ( January 25, 2015 ) =
 * New: Add option to restrict which pages the Flyout will be displayed on. This option is found under the Flyout Settings tab for each one.
 * New: Now Localization Ready!
 * Fix: CSS Bug with Chrome on Windows where the trigger buttons would jump around randomly while scrolling.
 
 
+
 = 1.2.3 ( December 13, 2014 ) =
 * Replaced auto-update script from AutoHosted to WP-Updates
+
 
 
 = 1.2.2 ( December 9, 2014 ) =
@@ -45,9 +60,11 @@ Adds hidden sidebars (left, right, top, and bottom) to all pages of your website
 * Update to ACF 5.1.4
 
 
+
 = 1.2.1 ( November 27, 2014 ) =
 * Fix: Adjust the logic for browser scrolling when a Flyout is active and not. This also helps correct the issue with certain themes that use animations on elements.
 * New: When a Flyout is opening, Triggers will fade out.
+
 
 
 = 1.2 ( November 21, 2014 ) =
@@ -66,8 +83,11 @@ Adds hidden sidebars (left, right, top, and bottom) to all pages of your website
 * Updated to ACF5.
 
 
+
 = 1.1.2 ( August 18, 2014 ) =
 * Fix: If using the slide displacement option, the utility classes: "sidr-open" and "flyout-content-id-{...}-open" were not being added to the body.
+
+
 
 = 1.1.1 ( August 7, 2014 ) =
 * Removed a conflict if another plugin is also using the font family "fontello".
@@ -75,8 +95,11 @@ Adds hidden sidebars (left, right, top, and bottom) to all pages of your website
 * Moved loading ACF to be called with the "after_setup_theme" hook. This allows the plugin to be activated if a theme already has ACF internally included such as the new ACFPro (v5).
 
 
+
 = 1.1 (June 13, 2014) =
 * Added new option under "Flyout Settings" to either have the Flyout "Slide" above the page content or "Push" the page content as normal.
+
+
 
 = 1.0.1 (June 5, 2014) =
 * Enhancement: Changed body position to fixed from absolute within jquery.sidr.min.js while flyout is active to prevent scrolling on the pushed body.

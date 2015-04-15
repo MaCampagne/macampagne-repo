@@ -6,7 +6,7 @@
  *
  * 	@author		Kerry Kline
  * 	@copyright	Copyright (c) 2015, Kerry Kline
- * 	@link		http://www.bluenotesentertainment.com
+ * 	@link		http://www.bnecreative.com
  *	@package	BNE Flyout
  *
  *	@ACF Version	5.1.4
@@ -274,7 +274,7 @@ if(function_exists("register_field_group"))
 				'append' => '%',
 				'min' => 0,
 				'max' => 100,
-				'step' => 10,
+				'step' => 1,
 			),
 			array (
 				'key' => 'field_5377f166cde6d',

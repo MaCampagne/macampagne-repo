@@ -3,10 +3,10 @@
  *
  * 	@author		Kerry Kline
  * 	@copyright	Copyright (c) 2015, Kerry Kline
- * 	@link		http://www.bluenotesentertainment.com
+ * 	@link		http://www.bnecreative.com
  * 	@package	BNE Flyout
  *
- *	@updated	January 25, 2015
+ *	@updated	March 8, 2015
  *
 */
 
@@ -149,8 +149,8 @@ html.flyout-lock .flyout-trigger {
 /* Image */
 .flyout-trigger.trigger-image img {
 	width: 100%;
-	/* Set to a max-width of 100px so that it doesn't take over the whole page. */
-	max-width: 100px;
+	/* Set to a max-width so that it doesn't take over the whole page. */
+	max-width: 200px;
 	cursor: pointer;
 }
 
@@ -159,7 +159,7 @@ html.flyout-lock .flyout-trigger {
 	.flyout-trigger.trigger-image img { max-width: 75px; }
 }
 
-/* For Top and bottom images, remove the max-width limitation */
+/* For top and bottom images, remove the max-width limitation */
 .flyout-trigger.trigger-top img,
 .flyout-trigger.trigger-bottom img {
 	max-width: 100%;
@@ -240,22 +240,24 @@ img[class*='flyout-trigger-id-'] {
  	display: none;
 }
 
-
 .bne-flyout-wrapper .sidr.left .flyout-content.push {
     -webkit-box-shadow: inset -8px 0px 8px -8px rgba(0,0,0,.5);
        -moz-box-shadow: inset -8px 0px 8px -8px rgba(0,0,0,.5);
 	   		box-shadow: inset -8px 0px 8px -8px rgba(0,0,0,.5);
 }
+
 .bne-flyout-wrapper .sidr.right .flyout-content.push {
     -webkit-box-shadow: inset 8px 0px 8px -8px rgba(0,0,0,.5);
        -moz-box-shadow: inset 8px 0px 8px -8px rgba(0,0,0,.5);
 	   		box-shadow: inset 8px 0px 8px -8px rgba(0,0,0,.5);
 }
+
 .bne-flyout-wrapper .sidr.top .flyout-content.push {
     -webkit-box-shadow: inset 0px -8px 8px -8px rgba(0,0,0,.5);
        -moz-box-shadow: inset 0px -8px 8px -8px rgba(0,0,0,.5);
 	   		box-shadow: inset 0px -8px 8px -8px rgba(0,0,0,.5);
 }
+
 .bne-flyout-wrapper .sidr.bottom .flyout-content.push {
     -webkit-box-shadow: inset 0px 8px 8px -8px rgba(0,0,0,.5);
        -moz-box-shadow: inset 0px 8px 8px -8px rgba(0,0,0,.5);
@@ -267,7 +269,6 @@ img[class*='flyout-trigger-id-'] {
        -moz-box-shadow: 0 0 8px rgba(0,0,0,.5);
 	   		box-shadow: 0 0 8px rgba(0,0,0,.5);
 }
-
 
 
 /* Default Typography */

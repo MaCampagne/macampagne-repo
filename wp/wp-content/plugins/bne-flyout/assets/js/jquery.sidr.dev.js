@@ -9,6 +9,7 @@
  *	2) Aug 18 2014 - Line 135 - Fixed bug where body classes were not added if sidr displacement was set to slide.
  *	3) Nov 13, 2014 - Line 109 & 170 Add Top and Bottom locations
  *	4) Nov 27, 2014 - Add scrollbar test and moved html/body overflow css into bne-flyout.css using .flyout-lock and .flyout-margin class selectors.
+ *	5) March 20, 2015 - Line 317 - Add fix for windows 8 devices that use touch and can use a mouse.
  *
 */
 
@@ -310,6 +311,12 @@
 							e.preventDefault();
 							methods.toggle(name);
 						}
+					});
+					// 	BNE EDIT
+					//	Fix for Windows 8 devices that use touch and a mouse.
+					$this.click(function(e) {
+						e.preventDefault();
+						methods.toggle(name);
 					});
 				} else {
 					$this.click(function(e) {

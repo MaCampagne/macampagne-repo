@@ -110,6 +110,7 @@ abstract class GFAddOn {
 	function __construct() {
 
 		add_action( 'init', array( $this, 'init' ) );
+
 		if ( $this->_enable_rg_autoupgrade ) {
 			require_once( 'class-gf-auto-upgrade.php' );
 			$is_gravityforms_supported = $this->is_gravityforms_supported( $this->_min_gravityforms_version );
@@ -1024,12 +1025,12 @@ abstract class GFAddOn {
 	 * @param array $field - The field to be rendered
 	 */
 	protected function single_setting( $field ) {
-		if ( is_callable( rgar( $field, 'callback' ) ) ) {
-			call_user_func( $field['callback'], $field );
-		} else if ( is_callable( array( $this, "settings_{$field['type']}" ) ) ) {
-			call_user_func( array( $this, "settings_{$field['type']}" ), $field );
+		if( is_callable( rgar( $field, 'callback' ) ) ) {
+			call_user_func($field["callback"], $field);
+		} else if (is_callable(array($this, "settings_{$field["type"]}"))) {
+			call_user_func(array($this, "settings_{$field["type"]}"), $field);
 		} else {
-			printf( __( "Field type '%s' has not been implemented", 'gravityforms' ), $field['type'] );
+			printf(__("Field type '%s' has not been implemented", "gravityforms"), $field["type"] );
 		}
 	}
 
@@ -1171,12 +1172,12 @@ abstract class GFAddOn {
 	}
 
 	protected function get_full_address( $entry, $field_id ) {
-		$street_value  = str_replace( '  ', ' ', trim( $entry[ $field_id . '.1' ] ) );
-		$street2_value = str_replace( '  ', ' ', trim( $entry[ $field_id . '.2' ] ) );
-		$city_value    = str_replace( '  ', ' ', trim( $entry[ $field_id . '.3' ] ) );
-		$state_value   = str_replace( '  ', ' ', trim( $entry[ $field_id . '.4' ] ) );
-		$zip_value     = trim( $entry[ $field_id . '.5' ] );
-		$country_value = GFCommon::get_country_code( trim( $entry[ $field_id . '.6' ] ) );
+		$street_value  = str_replace( '  ', ' ', trim( rgar( $entry, $field_id . '.1' ) ) );
+		$street2_value = str_replace( '  ', ' ', trim( rgar( $entry, $field_id . '.2' ) ) );
+		$city_value    = str_replace( '  ', ' ', trim( rgar( $entry, $field_id . '.3' ) ) );
+		$state_value   = str_replace( '  ', ' ', trim( rgar( $entry, $field_id . '.4' ) ) );
+		$zip_value     = trim( rgar( $entry, $field_id . '.5' ) );
+		$country_value = GF_Fields::get( 'address' )->get_country_code( trim( rgar( $entry, $field_id . '.6' ) ) );
 
 		$address = $street_value;
 		$address .= ! empty( $address ) && ! empty( $street2_value ) ? "  $street2_value" : $street2_value;
@@ -1191,7 +1192,7 @@ abstract class GFAddOn {
 
 	protected function get_full_name( $entry, $field_id ) {
 
-		//If field is aweber (one input), simply return full content
+		//If field is simple (one input), simply return full content
 		$name = rgar( $entry, $field_id );
 		if ( ! empty( $name ) )
 			return $name;
@@ -1199,13 +1200,15 @@ abstract class GFAddOn {
 		//Complex field (multiple inputs). Join all pieces and create name
 		$prefix = trim( rgar( $entry, $field_id . '.2' ) );
 		$first  = trim( rgar( $entry, $field_id . '.3' ) );
+		$middle = trim( rgar( $entry, $field_id . '.4' ) );
 		$last   = trim( rgar( $entry, $field_id . '.6' ) );
 		$suffix = trim( rgar( $entry, $field_id . '.8' ) );
 
 		$name = $prefix;
-		$name .= ! empty( $name ) && ! empty( $first ) ? " $first" : $first;
-		$name .= ! empty( $name ) && ! empty( $last ) ? " $last" : $last;
-		$name .= ! empty( $name ) && ! empty( $suffix ) ? " $suffix" : $suffix;
+		$name .= ! empty( $name ) && ! empty( $first ) ? ' ' . $first : $first;
+		$name .= ! empty( $name ) && ! empty( $middle ) ? ' ' . $middle : $middle;
+		$name .= ! empty( $name ) && ! empty( $last ) ? ' ' . $last : $last;
+		$name .= ! empty( $name ) && ! empty( $suffix ) ? ' ' . $suffix : $suffix;
 
 		return $name;
 	}
@@ -1702,34 +1705,38 @@ abstract class GFAddOn {
 		// Populate form fields
 		if ( is_array( $form['fields'] ) ) {
 			foreach ( $form['fields'] as $field ) {
-				if ( is_array( rgar( $field, 'inputs' ) ) ) {
-
+				$inputs = $field->get_entry_inputs();
+				if ( is_array( $inputs ) ) {
 					//If this is an address field, add full name to the list
 					if ( RGFormsModel::get_input_type( $field ) == 'address' ) {
-						$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')' );
+						$fields[] = array(
+							'value' => $field->id,
+							'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')'
+						);
 					}
 					//If this is a name field, add full name to the list
-					if ( RGFormsModel::get_input_type( $field ) == 'name' ){
-						$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')' );
+					if ( RGFormsModel::get_input_type( $field ) == 'name' ) {
+						$fields[] = array(
+							'value' => $field->id,
+							'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')'
+						);
 					}
 					//If this is a checkbox field, add to the list
 					if ( RGFormsModel::get_input_type( $field ) == 'checkbox' ) {
-						$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) . ' (' . __( 'Selected', 'gravityforms' ) . ')' );
+						$fields[] = array(
+							'value' => $field->id,
+							'label' => GFCommon::get_label( $field ) . ' (' . __( 'Selected', 'gravityforms' ) . ')'
+						);
 					}
-					foreach ( $field['inputs'] as $input ) {
-						if( RGFormsModel::get_input_type( $field ) == 'creditcard' ) {
-							//only include the credit card type (field_id.4) and number (field_id.1)
-							if ( $input['id'] == $field['id'] . '.1' || $input['id'] == $field['id'] . '.4' ) {
-								$fields[] =  array( 'value' => $input['id'], 'label' => GFCommon::get_label( $field, $input['id'] ) );
-							}
-						}
-						else {
-							$fields[] = array( 'value' => $input['id'], 'label' => GFCommon::get_label( $field, $input['id'] ) );
-						}
+
+					foreach ( $inputs as $input ) {
+						$fields[] = array(
+							'value' => $input['id'],
+							'label' => GFCommon::get_label( $field, $input['id'] )
+						);
 					}
-				}
-				else if ( ! rgar( $field, 'displayOnly' ) ) {
-					$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) );
+				} elseif ( ! rgar( $field, 'displayOnly' ) ) {
+					$fields[] = array( 'value' => $field->id, 'label' => GFCommon::get_label( $field ) );
 				}
 			}
 		}
@@ -1849,8 +1856,9 @@ abstract class GFAddOn {
 
 		$fields = array();
 
-		if ( ! is_array( $form['fields'] ) )
+		if ( ! is_array( $form['fields'] ) ) {
 			return $fields;
+		}
 
 		$args = wp_parse_args(
 			$args, array(
@@ -1863,30 +1871,47 @@ abstract class GFAddOn {
 
 			$input_type = GFFormsModel::get_input_type( $field );
 
-			if ( ! empty( $args['input_types'] ) && ! in_array( $input_type, $args['input_types'] ) )
+			if ( ! empty( $args['input_types'] ) && ! in_array( $input_type, $args['input_types'] ) ) {
 				continue;
+			}
 
-			if ( is_array( rgar( $field, 'inputs' ) ) ) {
-
+			$inputs = $field->get_entry_inputs();
+			if ( is_array( $inputs ) ) {
 				// if this is an address field, add full name to the list
-				if ( $input_type == 'address' )
-					$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')' );
-
-				// if this is a name field, add full name to the list
-				if ( $input_type == 'name' )
-					$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')' );
-
-				// if this is a checkbox field, add to the list
-				if ( $input_type == 'checkbox' )
-					$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) . ' (' . __( 'Selected', 'gravityforms' ) . ')' );
-
-				foreach ( $field['inputs'] as $input ) {
-					$fields[] = array( 'value' => $input['id'], 'label' => GFCommon::get_label( $field, $input['id'] ) );
+				if ( $input_type == 'address' ) {
+					$fields[] = array(
+						'value' => $field->id,
+						'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')'
+					);
 				}
-			} else if ( ! rgar( $field, 'displayOnly' ) ) {
+				// if this is a name field, add full name to the list
+				if ( $input_type == 'name' ) {
+					$fields[] = array(
+						'value' => $field->id,
+						'label' => GFCommon::get_label( $field ) . ' (' . __( 'Full', 'gravityforms' ) . ')'
+					);
+				}
+				// if this is a checkbox field, add to the list
+				if ( $input_type == 'checkbox' ) {
+					$fields[] = array(
+						'value' => $field->id,
+						'label' => GFCommon::get_label( $field ) . ' (' . __( 'Selected', 'gravityforms' ) . ')'
+					);
+				}
 
-				$fields[] = array( 'value' => $field['id'], 'label' => GFCommon::get_label( $field ) );
-
+				foreach ( $inputs as $input ) {
+					$fields[] = array(
+						'value' => $input['id'],
+						'label' => GFCommon::get_label( $field, $input['id'] )
+					);
+				}
+			} elseif ( ! rgar( $field, 'displayOnly' ) ) {
+				$fields[] = array( 'value' => $field->id, 'label' => GFCommon::get_label( $field ) );
+			} else{
+				$fields[] = array(
+					'value' => $field->id,
+					'label' => GFCommon::get_label( $field )
+				);
 			}
 		}
 
@@ -2519,7 +2544,7 @@ abstract class GFAddOn {
 
 		if ( $this->is_save_postback() ) {
 
-			// store a copy of the previous settings for cases where action whould only happen if value has changed
+			// store a copy of the previous settings for cases where action would only happen if value has changed
 			$this->set_previous_settings( $this->get_form_settings( $form ) );
 
 			$settings = $this->get_posted_settings();
@@ -3680,7 +3705,7 @@ abstract class GFAddOn {
 	 *
 	 * @return string
 	 */
-	protected function get_base_url( $full_path = '' ) {
+	public function get_base_url( $full_path = '' ) {
 		if ( empty( $full_path ) )
 			$full_path = $this->_full_path;
 
@@ -3712,7 +3737,7 @@ abstract class GFAddOn {
 	 *
 	 * @return string
 	 */
-	protected function get_base_path( $full_path = '' ) {
+	public function get_base_path( $full_path = '' ) {
 		if ( empty( $full_path ) )
 			$full_path = $this->_full_path;
 		$folder = basename( dirname( $full_path ) );
